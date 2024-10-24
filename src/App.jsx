@@ -6,6 +6,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./components/nav";
 import CreatePage from "./pages/createNews";
+import SinglePage from "./pages/singlePage";
+import UpdatePage from "./pages/updatePage";
 
 function App() {
 
@@ -28,7 +30,9 @@ function App() {
         <Route path="/" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/news" element={<NewsPage />} />
+        <Route path="/news/:id" element={<SinglePage />} />
         <Route path="/create" element={<CreatePage />} />
+        <Route path="/update/:id" element={<UpdatePage />} />
       </Routes>
     </>
   )

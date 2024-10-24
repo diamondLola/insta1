@@ -2,30 +2,32 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { api } from "../../utils/axios";
 import { toast } from "react-toastify";
-
+import { useClient } from "../../utils/zustand";
 
 function LoginPage() {
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
   let [data, setData] = useState("");
+  let { client, setClient } = useClient();
 
   useEffect(() => {
     api.get("/users").then((res) => setData(res.data));
   }, []);
-  console.log(data);
 
   const checkData = (e) => {
     e.preventDefault();
+    console.log(username, password);
+    console.log(client);
     const userFound = data.find(
-        (user) => user.username === username && user.password === password
-      );
-      if (userFound) {
-        toast.success("Found successfully");
-      } else {
-        toast.error("Check your data");
-      }
-    };
- 
+      (user) => user.username === username && user.password === password
+    );
+    if (userFound) {
+      toast.success("Found successfully");
+    } else {
+      toast.error("Check your data");
+    }
+  };
+
   return (
     <div className="m-6">
       <h1 className="flex justify-center items-center p-4 font-semibold">
@@ -35,7 +37,6 @@ function LoginPage() {
         className="flex flex-col justify-between items-center gap-10"
         onSubmit={(e) => checkData(e)}
       >
-      
         <input
           className="py-2 px-8 rounded-lg bg-yellow-300"
           type="text"
@@ -50,7 +51,7 @@ function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        
+
         <button className="py-2 px-8 rounded-lg bg-yellow-300">Log in</button>
       </form>
     </div>
