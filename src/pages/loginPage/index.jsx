@@ -7,7 +7,7 @@ import { useClient } from "../../utils/zustand";
 function LoginPage() {
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
-  let [data, setData] = useState("");
+  let [data, setData] = useState([]);
   let { client, setClient } = useClient();
 
   useEffect(() => {
@@ -16,12 +16,10 @@ function LoginPage() {
 
   const checkData = (e) => {
     e.preventDefault();
-    console.log(username, password);
-    console.log(client);
-    const userFound = data.find(
-      (user) => user.username === username && user.password === password
-    );
-    if (userFound) {
+    console.log('username', username, 'password', password);
+    console.log('client', client);
+    let user = data.find ((info)=> info.username == username && info.password == password)
+    if (user) {
       toast.success("Found successfully");
     } else {
       toast.error("Check your data");

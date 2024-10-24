@@ -7,6 +7,13 @@ import { useClient } from "../../utils/zustand";
 function MyCard() {
   let [data, setData] = useState([]);
 let {client, setClient}= useClient()
+
+useEffect(() => {
+    api.get("/posts")
+      .then((res) => setData(res.data))
+      .catch((err) => toast.error("Failed to fetch data"));
+  }, []);
+
   const delProduct = (id) => {
     api.delete(`/posts/${id}`)
       .then((res) => {
@@ -16,12 +23,7 @@ let {client, setClient}= useClient()
       .catch((err) => toast.error("Something went wrong"));
   };
 
-  useEffect(() => {
-    api.get("/posts")
-      .then((res) => setData(res.data))
-      .catch((err) => toast.error("Failed to fetch data"));
-  }, []);
-
+  
   return (
     <div className="flex flex-wrap justify-center items-center gap-4">
         <h1>welcome {client?.name}</h1>

@@ -7,11 +7,14 @@ function CreatePage() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const {client, setClient} = useClient()
+
   const sendData = (e) => {
     console.log(title, desc, date, author);
     e.preventDefault();
-    let now = new Date()
-    api.post(`/posts`, {
+
+    let now = new Date();
+
+    api.post(`/news`, {
         title,
         desc,
         date: now,
@@ -21,6 +24,7 @@ function CreatePage() {
         toast.success("Created successfuly");
         setTitle("");
         setDesc("");
+        setClient({ title, desc, date: now, author: client?.name });
        
       })
       .catch((err) => toast.error("Something went wrong"));

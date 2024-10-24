@@ -2,13 +2,16 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { api } from "../../utils/axios";
 import { toast } from "react-toastify";
+import { useClient } from "../../utils/zustand";
 
 function RegisterPage() {
   let [name, setName] = useState("");
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
- 
+  const { client, setClient } = useClient();
 
+
+  
   const sendData = (e) => {
     e.preventDefault();
     console.log(name, username, password );
@@ -18,7 +21,7 @@ function RegisterPage() {
       setName("");
       setUsername("");
       setPassword("");
-     
+      setClient({ name, username, password});
     })
     .catch((err) => toast.error("Something went wrong"));
      
